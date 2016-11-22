@@ -2,11 +2,11 @@ var axios = require('axios');
 
 var id = 'YOUR_CLIENT_ID';
 var sec = 'YOUR SECRET ID';
-var param = '?client_id=' + id + '&client_secret=' + sec;
+// var param = '?client_id=' + id + '&client_secret=' + sec;
 
 function getUserInfo (username) {
     // axios.get() returns a promise;
-    return axios.get('https://api.github.com/users/' + username + param);
+    return axios.get('https://api.github.com/users/' + username);
 };
 
 var helpers = {
