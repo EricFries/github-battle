@@ -1,5 +1,6 @@
 var React = require('react');
 var ConfirmBattle = require('../components/ConfirmBattle');
+var githubHelpers = require('../utils/githubHelpers')
 
 var ConfirmBattleContainer = React.createClass({
     contextTypes: {
@@ -19,10 +20,18 @@ var ConfirmBattleContainer = React.createClass({
 
     componentDidMount: function () {
       console.log('componentDidMount');
-      //coming from URL
       var query = this.props.location.query;
-      //fetch info from github & update state
-      console.log(query);
+      // getPlayersInfo returns a promise so you need .then to act on it
+      // when it's resolved.
+
+      githubHelpers.getPlayersInfo([query.playerOne, query.playerTwo])
+        .then(function (players) {
+          console.log(players)
+          this.setState({
+            isLoading: false,
+            playersInfo: [players[0], players[1]]
+          })
+        }.bind(this))
     },
 
     componentWillReceiveProps: function () {
